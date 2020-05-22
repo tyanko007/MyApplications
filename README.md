@@ -1,10 +1,3 @@
-develop the myapplications with docker.
+砂場環境
 
-the first app is task manager.
-enviroment [
-  host: docker-machine
-  os:centos7
-  web:nginx
-  db:postgresql
-  apache cordova, html5, css3, js, nodejs
-]
+様々な環境の遊び場。いろんことを試していこう
