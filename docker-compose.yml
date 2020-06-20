@@ -1,0 +1,21 @@
+version: '3'
+# メインサーバー部
+services:
+  server:
+    build: .
+    container_name: appserver
+    ports:
+      - 3000:3000
+    links:
+      - db:pgsql
+  db:
+    image: postgres:11
+    container_name: dbserver
+    ports:
+      - 5432:5432
+    volumes:
+    - ./app/postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
