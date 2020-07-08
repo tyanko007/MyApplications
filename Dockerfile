@@ -3,10 +3,8 @@ FROM centos:7
 RUN yum -y update
 RUN yum clean all
 
-SHELL ["/bin/bash", "-c"]
+# python36に必要なパッケージ群
+RUN yum install -y bzip2 bzip2-devel gcc gcc-c++ make openssl-devel readline-devel zlib-devel wget curl unzip vim epel-release git && yum install -y tig jq vim-enhanced bash-completion net-tools bind-utils
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-RUN source /root/.bashrc && \
-nvm install stable && \
-# npm i -g express-generator && \
-# npm i -g forever
+# pythonが含まれるrpmのダウンロード
+RUN yum install -y https://repo.ius.io/ius-release-el7.rpm
