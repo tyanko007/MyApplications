@@ -159,6 +159,6 @@ def main():
     #define()
     #tclass()
     #study_if()
-    study_for()
+    #study_for()
 
 main()
