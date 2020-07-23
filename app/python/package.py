@@ -188,8 +188,8 @@ def main():
     #pd_dataframe()
     #read_file()
     #join_dataframe()
-    #row_dataframe()
-    #col_dataframe()
+    row_dataframe()
+    col_dataframe()
     #pd_series()
     #function_help()
 
