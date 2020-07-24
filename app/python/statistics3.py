@@ -12,6 +12,12 @@ plt.figure()
 
 def main():
 
+    # base variables
+    base_list = pd.read_csv("/root/app/sts3_csv.csv")
+    base_list2 = pd.read_csv("/root/app/sts2-3_csv.csv")
+    # debug_place
+    # print(base_list.groupby("species").describe()) # データの情報の確認
+
     # 折れ線グラフ
     def lineplot():
         # データの用意
@@ -80,10 +86,7 @@ def main():
         canvas_view = f.image_graph(graph, title)
         canvas_view.view()
 
-    def multi_line():
-        list_data = pd.read_csv("/root/app/sts3_csv.csv")
-
-        # print(list_data.groupby("species").describe()) # データの情報の確認
+    def multi_line(list_data):
 
         # グループ別に分割
         list_a = list_data.query('species=="A"')["length"]
@@ -100,13 +103,87 @@ def main():
         canvas_view = f.image_graph(graph, title)
         canvas_view.view()
 
+    # 箱髭図
+    def boxplot(data):
+
+        #グラフデザインの指定
+        sns.set()
+        #グラフの描写
+        title = "boxplot_graph"
+        plt.title(title)
+        graph = sns.boxplot(x = "species", y = "length", data = data, color = "gray")
+        # 表示
+        canvas_view = f.image_graph(graph, title)
+        canvas_view.view()
+    # ヴァイオリンプロット:箱の代わりにカーネル密度推定の結果を用いたもの
+    def violinplot(data):
+        # グラフデザインの指定
+        sns.set()
+        #グラフの描写
+        title = "violinplot_graph"
+        plt.title(title)
+        graph = sns.violinplot(x="species", y="length", data=data, color="gray")
+        canvas_view = f.image_graph(graph, title)
+        canvas_view.view()
+    # 棒グラフ
+    def barplot(data):
+        # グラフデザインの指定
+        sns.set()
+        #グラフの描写
+        title = "barplot_graph"
+        plt.title(title)
+        graph = sns.barplot(x="species", y="length", data=data, color="gray")
+        #表示
+        canvas_view = f.image_graph(graph, title)
+        canvas_view.view()
+    # 散布図:数値データ×数値データ
+    def jointplot(data):
+        # グラフデザインの指定
+        sns.set()
+        #グラフの描写
+        title = "jointplot_graph"
+        plt.title(title)
+        graph = sns.jointplot(x="x", y="y", data=data, color="black")
+        #表示
+        canvas_view = f.image_graph(graph, title)
+        canvas_view.view()
+    # 3変数以上のデータを図示(ペアプロット)
+    def groupdata_stat():
+        # データの準備:seaborn組み込みのアヤメ(辞書データ)を使用
+        iris = sns.load_dataset("iris")
+        #実行別に分割
+        def iris_conf():
+            print(iris.head(n = 3))
+            #アヤメのデータの理解
+            horizon = "---------------------------"
+            print(horizon)
+            print(iris.groupby("species").mean()) # 特徴別の平均値を取得
+        def iris_graph(data):
+            #グラフデザインの指定
+            sns.set()
+            #グラフの描写
+            title = "iris_pairplot_graph"
+            plt.title(title)
+            graph = sns.pairplot(data, hue="species", palette="gray") # hueはカテゴリ型データの列名を指定する
+            #表示
+            canvas_view = f.image_graph(graph, title)
+            canvas_view.view()
+
+        #実行
+        # iris_conf()
+        iris_graph(iris)
+
     # 実行
     # lineplot()
     # lineplot_seaborn()
     # histogram()
     # bins_1_design()
     # kernel_design()
-    multi_line()
-
+    # multi_line(base_list)
+    # boxplot(base_list)
+    # violinplot(base_list)
+    # barplot(base_list)
+    # jointplot(base_list2)
+    groupdata_stat()
 
 main()

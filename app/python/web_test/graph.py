@@ -8,7 +8,6 @@ import io
 
 print ("Content-Type: text/html\n");
 
-plt.figure()
 
 def main():
 
