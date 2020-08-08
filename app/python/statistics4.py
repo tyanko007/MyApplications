@@ -70,23 +70,74 @@ def main():
         base_std = sp.std(data, ddof=0) # 母標準偏差
         base_var = sp.var(data, ddof=0) # 母分散
         # グラフ描写
-        def sigma_graph(list):
+        def sigma_graph(list, op1, op2, op3):
             title = "fish_population_graph"
             plt.title(title)
             graph = sns.distplot(list, kde=False, color='black')
-            # オプション付きのview表示のコードの追加
-
+            # 表示
+            canvas = f.image_graph(graph, title)
+            canvas.view_option(op1, op2, op3)
 
         # run function
-        variable_confirm(data, rmdata10)
+        # variable_confirm(data, rmdata10)
+        sigma_graph(data, base_mean, base_std, base_var)
+
+    # 平均が4分散が0.64の正規分布に従ったグラフの描写
+    def fixed_population():
+        # 確認用
+        def variable_confirm(v):
+            print(v)
+        # 値の準備
+        data = np.arange(start=1, stop=7.1, step=0.1)
+        # 確率密度の算出
+        like = stats.norm.pdf(x = data, loc = 4, scale = 0.8)
+        # 確率密度の図示
+        def like_graph(list, density, op1, op2, op3):
+            title = "fixed_population_graph"
+            plt.title(title)
+            graph = plt.plot(list, density, color="black")
+
+            # 表示
+            canvas = f.image_graph(graph, title)
+            canvas.view_option(op1, op2, op3)
+
+        #run function
+        # variable_confirm(like)
+        like_graph(data, like, 4, 0.8, 0.64)
+
+    # 2つのグラフを重ねる
+    def fish_fixed_graph():
+        # 準備
+        x = pd.read_csv("/root/app/sts4_csv.csv")["length"]
+        y = np.arange(start=1, stop=7.1, step=0.1)
+
+        # 表示
+        title = "fish_fixed_graph"
+        plt.title(title)
+        graph = sns.distplot(x, kde=False, norm_hist=True, color="black")
+        graph = plt.plot(y, stats.norm.pdf(x = y, loc = 4, scale = 0.8), color="black")
+
+        canvas = f.image_graph(graph, title)
+        canvas.view_option(4, 0.8, 0.64)
+
+    #　任意の乱数の指定
+    def choice_numbers():
+        create_list = stats.norm.rvs(loc=4, scale=0.8, size=10)
+        f = list_format(create_list)
+        print("平均4, 標準偏差0.8, サンプルサイズ10のリスト")
+        print(f.format())
 
     # run exec function
     # fish_5()
     # fish_many()
+    # fixed_population()
+    # fish_fixed_graph()
+    choice_numbers()
+
 
     def debug_space():
         test = f.image_graph("graph", "graph_title")
         test.view_option("", "", "")
-    debug_space()
+    # debug_space()
 
 main()

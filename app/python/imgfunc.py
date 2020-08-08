@@ -1,6 +1,9 @@
 # coding: utf-8
 from matplotlib import pyplot
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+import numpy as np
+from scipy import stats
+import scipy as sp
 
 class image_graph:
     def __init__(self, dt_graph, dt_name):
@@ -22,7 +25,7 @@ class image_graph:
         <div id="graph">
         """)
         pyplot.savefig("/root/app/img/" + self.nm + ".png")
-        print("<img src='./../img/" + self.nm + ".png'")
+        print("<img src='./../img/" + self.nm + ".png'>")
         print("""
         </div>
         </body>
@@ -62,7 +65,7 @@ class image_graph:
         header()
         print("<div id='graph_view'>")
         pyplot.savefig("/root/app/img/" + self.nm + ".png")
-        print("<img src='./../img/" + self.nm + ".png'")
+        print("<img src='./../img/" + self.nm + ".png'>")
         print("</div><div id='graph_info'>")
         # confirm graph status
         me_f = var_null(me)
@@ -92,3 +95,19 @@ class image_graph:
 
         img_path = "<img src='./../img/" + self.nm + ".png'"
         view(img_path)
+
+# the population data create auto calclation class
+class sigma_calc:
+
+    def __init__(self, size, n_trial):
+        self.size = size
+        self.n_trial = n_trial
+        # avarage=4, standard deviation=0.8
+        self.pop = stats.norm(loc=4, scale=0.8)
+
+    def create_source(self):
+        box = np.zeros(self.n_trial)
+        for i in range(0, self.n_trial):
+            b = self.pop.rvs(size=self.size)
+            box[i] = sp.mean(b)
+        return box
