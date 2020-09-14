@@ -12,7 +12,7 @@ from scipy import stats
 from matplotlib import pyplot as plt
 import seaborn as sns
 # グラフをwebで表示するための独自ライブラリ
-import imgfunc as f
+import class_module as f
 
 # 小数点の整理
 class list_format:
@@ -131,8 +131,8 @@ def main():
     # fish_5()
     # fish_many()
     # fixed_population()
-    # fish_fixed_graph()
-    choice_numbers()
+    fish_fixed_graph()
+    # choice_numbers()
 
 
     def debug_space():

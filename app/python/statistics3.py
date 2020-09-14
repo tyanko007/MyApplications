@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
-import imgfunc as f
+import class_module as f
 
 plt.figure()
 

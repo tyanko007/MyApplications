@@ -10,7 +10,7 @@ from scipy import stats
 from matplotlib import pyplot as plt
 import seaborn as sns
 # グラフの表示用クラス
-import imgfunc as f
+import class_module as f
 
 # グラフデザインの指定
 sns.set()
@@ -133,7 +133,7 @@ def main():
         np.random.seed(1)
         for i in range(0, len(base_samplesize)):
             tmp_box = f.sigma_calc(size=base_samplesize[i], n_trial=100)
-            base_box[i] = sp.std(tmp_box, ddof=1)
+            base_box[i] = sp.std(tmp_box.create_source(), ddof=1)
         # グラフの描写
         title = "sigma_mean_deviation_graph"
         plt.title(title)
@@ -143,6 +143,33 @@ def main():
         canvas = f.image_graph(graph, title)
         canvas.view_option(me="", st="", va="")
 
+    # 標本平均の標準偏差=標準誤差の計算
+    def sigma_standard_error():
+        # prepare
+        spm = np.arange(start=2, stop=102, step=2)
+        std_box = np.zeros(len(spm))
+        # 単純な計算式
+        st_err_1 = 0.8 / np.sqrt(spm)
+        # 標本平均の標準偏差
+        np.random.seed(1)
+        for i in range(0, len(spm)):
+            tmp = f.sigma_calc(size=spm[i], n_trial=100)
+            std_box[i] = sp.std(tmp.create_source(), ddof=1)
+        # 変数の確認用
+        def var_conf(v):
+            print(v)
+        # var_conf(std_box) # コメントアウト推奨
+
+        # 標本平均の標準偏差と標準誤差のグラフ
+        title = "sigma_standard_error_graph"
+        plt.title(title)
+        graph = plt.plot(spm, std_box, color="black")
+        graph = plt.plot(spm, st_err_1, linestyle="dotted", color="black")
+        graph = plt.xlabel("smaple_size")
+        graph = plt.ylabel("mean_std_value")
+        canvas = f.image_graph(dt_graph=graph, dt_name=title)
+        canvas.view_option(me="", st="", va="")
+
 
     # 実行
     # loop_calclation(base_population)
@@ -150,6 +177,7 @@ def main():
     # bigger_samplesize(base_population)
     # arange_samplesize()
     # sigma_mean_deviation()
+    sigma_standard_error()
 
     # debug room
     def debug_space():
@@ -166,13 +194,13 @@ def main():
             box = np.zeros(len(elist))
             for i in range(0, len(elist)):
                 a = f.sigma_calc(size=10, n_trial=10)
-                box[i] = sp.mean(a)
+                box[i] = sp.mean(a.create_source())
             print(box)
 
         # select debug func
         # exe_conf()
-        err_conf()
+        # err_conf()
 
-    debug_space()
+    # debug_space()
     # end
 main()

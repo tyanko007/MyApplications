@@ -111,3 +111,35 @@ class sigma_calc:
             b = self.pop.rvs(size=self.size)
             box[i] = sp.mean(b)
         return box
+
+    def create_source_var(self):
+        box = np.zeros(self.n_trial)
+        for i in range(0, self.n_trial):
+            b = self.pop.rvs(size=self.size)
+            box[i] = sp.var(b, ddof=1)
+        return box
+
+# adjustment list data format
+class list_format:
+    # data init
+    def __init__(self, lv, data):
+        self.l = lv
+        self.d = data
+
+    def format(self):
+        # aling data
+        if self.l == 1:
+            sub = np.zeros(len(self.d))
+            for i in range(0, len(self.d)):
+                sub[i] = f'{self.d[i]:.3f}'
+            return sub
+        elif self.l == 2:
+            # sub = np.zeros(self.l)
+            sub = []
+            for y in range(0, self.l):
+                sub.append(np.zeros(len(self.d[y])))
+                for i in range(0, len(self.d[y])):
+                    sub[y][i] = f'{self.d[y][i]:.3f}'
+            return sub
+        else:
+            return 0
