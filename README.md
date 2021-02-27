@@ -1,18 +1,2 @@
-画像認識プログラムの作成
-
-目的：画像認識の精度をどこまであげられるか
-目標：明治のミルクチョコレートとブラックチョコレートの判別くらいまでの精度を目指す
-
-言語：python
-
-1, ひとまず現段階で簡単に作れるプログラムにて画像認識の精度がどのくらいなのかをチェック
-1-1, 環境を構築：google platform
-    - os: centos7
-1-2, テスト画像集め
-    - 問題点
-    - pythonでスクレイピングを実施した際に動的コンテンツの取得ができない, phantomJsで解決
-
-
-python web server 実行時注意点
-パーミッションは: 755 実行許可を追加
-ファイルの１行目: #! /usr/bin/env python が必要
+Welcome to my github space.
+I will leave a source that I tried various languages ​​easily.

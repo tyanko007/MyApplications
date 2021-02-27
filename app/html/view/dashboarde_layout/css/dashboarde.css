@@ -1,0 +1,154 @@
+html body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+}
+
+/* sidebar content css */
+.sidebar{
+  display: block;
+  position: fixed;
+
+  width: 250px;
+  height: 100%;
+}
+
+.sidebar-title{
+  width: 100%;
+  height: 50px;
+  padding-left: 30%;
+
+  position: relative;
+
+  color: #F00;
+  font-style: italic;
+  font-size: 20px;
+  background-color: #a9a9a9;
+}
+
+.sidebar-title p{
+  display: block;
+  position: absolute;
+
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.sidebar-form{
+  display: flex;
+}
+
+.list-group{
+  border-radius: 10px;
+}
+
+.list-group-item{
+  border-radius: 10px;
+}
+
+.list-group li:hover{
+  background-color: #DDF;
+}
+
+.list-group li.active{
+  background-color: #DDD;
+}
+
+.sidebar-anker, .sidebar-anker:hover{
+  color: #000;
+}
+
+.sidebar-conf-menu{
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 7px 10px;
+  min-width: 200px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #FFF;
+  border: solid 3px #555;
+  box-sizing: border-box;
+}
+
+.sidebar-conf-menu::after{
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  margin-left: -17px;
+  border: 14px solid transparent;
+  border-bottom: 14px solid #555;
+  z-index: 1;
+}
+
+.sidebar-conf-menu::before{
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  margin-left: -15px;
+  border: 12px solid transparent;
+  border-bottom: 12px solid #FFF;
+  z-index: 2;
+}
+
+.menu-ul{
+  padding: 0;
+  position: relative;
+}
+
+.menu-ul li{
+  color: #2d8fdd;
+  border-left: solid 15px #CCC;/*左側の線*/
+  background: #EEE;/*背景色*/
+  margin-bottom: 3px;/*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none!important;/*ポチ消す*/
+}
+
+/* console console css */
+.console{
+  display: inline-block;
+  float: right;
+
+  border-top: 5px solid #AAA;
+  border-bottom: 5px solid #AAA;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.console.long{
+  padding-left: 250px;
+}
+
+.conosole.short{
+  padding-left: 0;
+}
+
+@media (min-width: 901px){
+  .swiper-container{
+    /* PC size */
+    height: 500px;
+  }
+} @media (max-width: 900px){
+  .swiper-container{
+    height: 250px;
+  }
+}
+
+.swiper-slide{
+  display: inline-block;
+
+  text-align: center;
+}

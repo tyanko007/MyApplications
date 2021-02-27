@@ -1,0 +1,33 @@
+/* 土台の高さを設定 */
+.col-md-4{
+  height: 300px;
+  background-color: #FFF;
+}
+
+.circle{
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: #DEA;
+}
+
+.attr{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.footer{
+  text-align: center;
+}
+
+.code-preview{
+  display: block;
+  width: 100%;
+  background-color: #CCC;
+
+  border: solid 5px #999;
+  border-radius: 15px;
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <title>OZworld</title>
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/blog.css">
+</head>
+<body>
+  <!-- title line -->
+  <div class="container-fluid">
+    <div class="row tl-style">
+      <div class="col-2 text-center mt-4">
+        <a href="../index.html" class="btn btn-outline-secondary">Subscribe</a>
+      </div>
+      <div class="col-8 text-center mt-1">
+        <p class="display-4">Happy Blog</p>
+      </div>
+      <div class="col-2 text-center mt-4">
+        <button type="button" name="button" class="btn btn-outline-primary">login</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- navigation line -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <ul class="list-inline">
+          <li class="list-inline-item"><a class="anker-design" href="#">Dialy</a></li>
+          <li class="list-inline-item"><a class="anker-design" href="#">Hoby</a></li>
+          <li class="list-inline-item"><a class="anker-design" href="#">News</a></li>
+          <li class="list-inline-item"><a class="anker-design" href="#">Person</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- blog line -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col blog-header">
+        <p class="display-4">Djangoを使ったアプリケーション作成</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col blog-body">
+        <h3>テスト環境と事前準備</h3>
+        <h4>テスト環境</h4>
+        <ul>
+          <li>MainFrame : docker container</li>
+          <li>language : python3(3.9.0)</li>
+          <li>database : postgresql(13.0)</li>
+          <li>webFramework : Django</li>
+        </ul>
+        <hr>
+        <p><u>事前準備</u></p>
+        <p>今回初環境はdocker-composeを用いて開発<br>あらかじめ用意したファイルは"Dockerfile","docker-compose","requirements.txt"の3ファイル</p>
+        <hr>
+        <p><u>プロジェクト作成</u></p>
+        <ol>
+          <li>プロジェクトの作成 > docker-compose run {web-container} django-admin.py startproject {projectname}</li>
+          <li>データベースの接続設定 > settings.py内DATABASEをpostgresqlに変更</li>
+          <li>アプリケーションの起動(backgroundでやるなら -d) > docker-compose up {-d}</li>
+        </ol>
+        <hr>
+        <p><u>アプリケーション作成</u></p>
+        <ol>
+          <li>アプリケーションフレームを作成 > python manage.py startapp {app_name}</li>
+          <li>{app_name}/urls.pyにviewトリガーを設定 > ex. path('', views.index, name='index')</li>
+          <li>{project_name}/urls.pyにappの方を連携(api連携も忘れずに) > ex. path('{app_name}/', include('{app_name}.urls'))</li>
+        </ol>
+        <hr>
+        <p><u>データベースモデルの作成</u></p>
+        <ol>
+          <li>データベースの初期化 > python manage.py migrate</li>
+          <li>モデルの作成 > models.pyにてclass {テーブル名}(models.Model): columnを設定</li>
+          <li>モデルの有効化 > setting.pyのINSTALLED_APPSにモデル設定を追加('{app_name}.apps.{App}Config')</li>
+          <li>モデルの情報を作成 > python manage.py makemigrations</li>
+          <li>データベースを設定 > python manage.py migrate</li>
+        </ol>
+        <hr>
+        <p><u>viewの設定</u></p>
+        <p>viewの表現その1. 静的結果を返す</p>
+        <p>ex. def index(request): return HttpResponse("hogehoge")</p>
+        <p>viewの表現その2. 動的結果を返す</p>
+        <p>ex. def index(request, id): tmp = "number of %s" return HttpResponse(tmp, % id)</p>
+        <p>viewの表現その3. render表現</p>
+        <p>render(requestオブジェクト, テンプレート名, 任意)</p>
+        <hr>
+        <p><u>urlpatternsの設定</u></p>
+        <p>表現その1. index</p>
+        <p>path("", views.index, name="index") > /{app_name}/</p>
+        <p>表現その2. ページ名指定</p>
+        <p>path("page.html", views.page, name="page") > /{app_name}/page.html</p>
+        <p>表現その3. 動的引数の指定</p>
+        <p>path("&lt;int:id&gt;/aaa", views.aaa, name="aaa") > /{app_name}/%id/aaa</p>
+        <hr>
+        <p><u>classベースの汎用ビューの作成</u></p>
+        <ul>
+          <li>views.pyに from django.views import generic を追加</li>
+          <li>generic.TemplateView > 静的コンテンツの自動作成。contextを定義することで変数を使用することは可能</li>
+          <li>generic.ListView > モデルの中身をリスト表示の自動生成。利用することでリストを呼びだすコードを書き換え可能。pkでリストを特定している</li>
+          <li>generic.DetailView > モデルの詳細の自動生成。調査中。pkで特定している</li>
+        </ul>
+        <hr>
+        <p><u>テーブルの追加・削除</u></p>
+        <ol>
+          <li>models.pyに新規テーブルの作成、または削除したいテーブルの削除</li>
+          <li>python manage.py makemigrationsでモデルの再構築</li>
+          <li>python manage.py migrateでデータベースに定義</li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col blog-footer">
+        <h3>Djangoのアプリケーション作成の箇条書き</h3>
+        <p class="footer-text">んー表現慣れないな、、、</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-right my-3">
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+        </svg>
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+        </svg>
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+        </svg>
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col com">
+        <div class="c-size">
+          <form>
+            <div class="form-group">
+              <label for="comment">Comment</label>
+              <textarea name="name" class="form-control" id="comment" rows=3></textarea>
+              <div class="text-right">
+                <button type="button" name="button" class="btn btn-success mt-2">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- introduction line -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- card 1 -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <div class="img-modoki"><span class="img-center">img</span></div>
+          </div>
+          <div class="card-body">
+            <p class="card-title">The best hoby</p>
+            <p class="card-content">I like .....</p>
+          </div>
+          <div class="card-footer text-right">
+            <button type="button" name="button" class="btn btn-outline-primary">link</button>
+          </div>
+        </div>
+      </div>
+      <!-- card 2 -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <div class="img-modoki"><span class="img-center">img</span></div>
+          </div>
+          <div class="card-body">
+            <p class="card-title">Every news inform</p>
+            <p class="card-content">Today news point .....</p>
+          </div>
+          <div class="card-footer text-right">
+            <button type="button" name="button" class="btn btn-outline-primary">link</button>
+          </div>
+        </div>
+      </div>
+      <!-- card 3 -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <div class="img-modoki"><span class="img-center">img</span></div>
+          </div>
+          <div class="card-body">
+            <p class="card-title">personal infomation</p>
+            <p class="card-content">Today my birthday!!! thank you my friends. ....</p>
+          </div>
+          <div class="card-footer text-right">
+            <button type="button" name="button" class="btn btn-outline-primary">link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- profile line -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="prof-p">
+          <div class="prof-c"></div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="prof-b">
+          <p>My name is ....<br>aaa<br>bbb</p>
+        </div>
+        <div class="prof-f">
+          <p>Email:hogehoge@blog.com<br>Twitter:fuga, Git:gera</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- copyright line -->
+  <footer class="text-center">
+    <p>&copy2020 personal blog layout</p>
+  </footer>
+
+  <script src="../../js/jquery-3.5.1.min.js" charset="utf-8"></script>
+  <script src="../../js/bootstrap.min.js" charset="utf-8"></script>
+</body>
+</html>

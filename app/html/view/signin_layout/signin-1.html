@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <title>OZworld</title>
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/signin.css">
+</head>
+<body>
+
+  <div class="jumbotron-fluid">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 left-item mt-4">
+          <div class="short-circle"></div>
+          <div class="middle-circle"></div>
+          <div class="big-circle"></div>
+          <div class="between"></div>
+          <div class="start-circle"></div>
+        </div>
+        <div class="col-lg-4 right-item mt-4">
+          <form>
+            <div class="form-group">
+              <label for="signid">ユーザーID</label>
+              <input type="text" name="sginid" class="form-control" placeholder="Email or UserID" id="signid">
+              <label for="signpass">パスワード</label>
+              <input type="password" name="signpass" class="form-control" id="signpass">
+              <button type="submit" formmethod="get" formaction="../index.html" name="button" class="mt-4 btn btn-outline-primary" name="submit" id="submit" value="signin">サインイン</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <p>&copy;2020 tyanko.inc content</p>
+        </div>
+      </div>
+      <!--
+      <div class="row">
+        <div class="col-8 text-center">
+          <button type="button" name="button" class="btn btn-outline-primary" id="run">アニメーション実行</button>
+        </div>
+      </div>
+      -->
+    </div>
+  </div>
+
+  <script src="../../js/jquery-3.5.1.min.js" charset="utf-8"></script>
+  <script src="../../js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="./js/signin.js" charset="utf-8"></script>
+</body>
+</html>
